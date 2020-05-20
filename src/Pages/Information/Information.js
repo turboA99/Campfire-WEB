@@ -12,6 +12,7 @@ import RulesIcon from "@material-ui/icons/Gavel";
 import SecurityIcon from "@material-ui/icons/Security";
 import GaleryIcon from "@material-ui/icons/FilterHdr";
 import MailIcon from "@material-ui/icons/Mail";
+import { Link as Links } from "@material-ui/core";
 import { Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -45,8 +46,31 @@ function SettingListTitle(props) {
 function SettingsButton(props) {
   const classes = Styles();
   const [Selected] = React.useState(props.state);
-  if (props.SimpleButton) {
-    const handleClick = () => {};
+  const handleClick = () => {};
+  if (props.url) {
+    return (
+      <ListItem
+        selected={Selected}
+        onClick={handleClick}
+        component={Links}
+        href={props.link}
+        className={classes.SettingsButtons}
+        button
+      >
+        <ListItemIcon>
+          <Avatar className={props.color}>{props.Icon}</Avatar>
+        </ListItemIcon>
+        <ListItemText
+          style={{ width: "max-content", color: "#ffffff" }}
+          primary={props.children}
+          secondary={props.secondary}
+        />
+        <ListItemIcon style={{ marginLeft: "1rem" }}>
+          <ChevronRightIcon />
+        </ListItemIcon>
+      </ListItem>
+    );
+  } else {
     return (
       <ListItem
         selected={Selected}
@@ -77,14 +101,17 @@ export default function OtherInformation() {
   return (
     <Fragment>
       <SettingsMainWindow title="About">
-        <SettingsButton Icon={"?"} color={classes.blue} SimpleButton>
+        <SettingsButton
+          link="/Information/Wiki"
+          Icon={"?"}
+          color={classes.blue}
+        >
           Wiki
         </SettingsButton>
         <SettingsButton
           Icon={<RulesIcon />}
           color={classes.green}
           link="/Information/App-rules"
-          SimpleButton
         >
           Rules of app
         </SettingsButton>
@@ -92,32 +119,34 @@ export default function OtherInformation() {
           Icon={<RulesIcon />}
           color={classes.blue}
           link="/Information/App-rules-moderator"
-          SimpleButton
         >
           Rules of moderation
         </SettingsButton>
         <SettingsButton
+          link="/Information/Admin-events"
           Icon={<SecurityIcon />}
           color={classes.orange}
-          SimpleButton
         >
           Admins events
         </SettingsButton>
         <SettingsButton
+          link="/Information/Prison"
           Icon={<SecurityIcon />}
           color={classes.blue}
-          SimpleButton
         >
           Prison
         </SettingsButton>
-        <SettingsButton Icon={<StarIcon />} color={classes.orange} SimpleButton>
+        <SettingsButton
+          link="/Information/Statistic"
+          Icon={<StarIcon />}
+          color={classes.orange}
+        >
           Statitic
         </SettingsButton>
         <SettingsButton
           Icon={<RowingIcon />}
           color={classes.purple}
           link="/Information/App-creators"
-          SimpleButton
         >
           Creators
         </SettingsButton>
@@ -125,18 +154,19 @@ export default function OtherInformation() {
           Galery
         </SettingsButton>
         <SettingsButton
-          link="zeoooon@ya.ru"
+          link="mailto:zeoooon@ya.ru"
           Icon={<MailIcon />}
           color={classes.pink}
           secondary="zeoooon@ya.ru"
-          SimpleButton
+          url
         >
           Mail to developer
         </SettingsButton>
         <SettingsButton
+          link="http://sayzen.ru/eng.html"
           Icon={<SecurityIcon />}
           color={classes.blue}
-          SimpleButton
+          url
         >
           Privancy policy
         </SettingsButton>

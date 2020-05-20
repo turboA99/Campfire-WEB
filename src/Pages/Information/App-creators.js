@@ -5,6 +5,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import Links from "@material-ui/core/Link";
 import { MoreVert as MoreIcon } from "@material-ui/icons";
 import { Avatar, Menu, IconButton, MenuItem } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -48,14 +49,11 @@ function SettingsButton(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <ListItem className={classes.SettingsButtons}>
       <ListItemIcon>
-        <Avatar
-          style={{ borderRadius: "1rem" }}
-          alt={props.children}
-          src={props.src}
-        />
+        <Avatar style={{ borderRadius: "1rem" }} src={props.src} />
       </ListItemIcon>
       <ListItemText
         style={{ width: "max-content" }}
@@ -80,11 +78,25 @@ function SettingsButton(props) {
           }
         }}
       >
-        {["Campfire", "EMail", "VKontakte"].map(option => (
-          <MenuItem key={option} onClick={handleClose}>
-            {option}
-          </MenuItem>
-        ))}
+        <MenuItem key="Campfire" component={Link} to={props.Campfire}>
+          Campfire
+        </MenuItem>
+        <MenuItem
+          color="textPrimary"
+          key="EMail"
+          component={Links}
+          href={"mailto:" + props.EMail}
+        >
+          EMail
+        </MenuItem>
+        <MenuItem
+          color="textPrimary"
+          key="VKontakte"
+          component={Links}
+          href={props.VKontakte}
+        >
+          VKontakte
+        </MenuItem>
       </Menu>
     </ListItem>
   );
@@ -96,6 +108,9 @@ export default function OtherInformation() {
     <Fragment>
       <SettingsMainWindow title="Creators">
         <SettingsButton
+          VKontakte="https://vk.com/zeooon"
+          EMail="zeooon@ya.ru"
+          Campfire="/profile/Zeon"
           src="../DK.jpg"
           secondary="Android app and server developer."
         >
@@ -105,6 +120,9 @@ export default function OtherInformation() {
           </Link>
         </SettingsButton>
         <SettingsButton
+          VKontakte="https://vk.com/saynok"
+          EMail="saynokdeveloper@gmail.com"
+          Campfire="/profile/Saynok"
           src="../IC.jpg"
           secondary="Android app developer (until 2018)."
         >
@@ -113,19 +131,37 @@ export default function OtherInformation() {
             (@Saynok)
           </Link>
         </SettingsButton>
-        <SettingsButton src="../YK.jpg" secondary="Artist / Animator">
+        <SettingsButton
+          VKontakte="https://vk.com/id216069359"
+          EMail="georgepro@gmail.com"
+          Campfire="/profile/GeorgePro"
+          src="../YK.jpg"
+          secondary="Artist / Animator"
+        >
           Yegor Korolev
           <Link className={classes.link} to="/profile/GeorgePro">
             (@GeorgePro)
           </Link>
         </SettingsButton>
-        <SettingsButton src="../AA.jpg" secondary="Redirect page developer.">
+        <SettingsButton
+          VKontakte="https://vk.com/turboA99"
+          Campfire="/profile/turboA99"
+          EMail="turboRO99@gmail.com"
+          src="../AA.jpg"
+          secondary="Redirect page developer."
+        >
           Artur Aldridge
           <Link className={classes.link} to="/profile/turboA99">
             (@turboA99)
           </Link>
         </SettingsButton>
-        <SettingsButton src="../MK.jpg" secondary="Content manager.">
+        <SettingsButton
+          VKontakte="https://vk.com/zymixx"
+          EMail="zymiix@gmail.com"
+          Campfire="/profile/ZYMixx"
+          src="../MK.jpg"
+          secondary="Content manager."
+        >
           Maksim Kholin
           <Link className={classes.link} to="/profile/ZYMixx">
             (@ZYMixx)
