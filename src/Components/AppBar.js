@@ -1,38 +1,44 @@
 import React, { Fragment, useEffect, useState } from "react";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import Badge from "@material-ui/core/Badge";
-import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
-import StarIcon from "@material-ui/icons/Star";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import Collapse from "@material-ui/core/Collapse";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
-import RowingIcon from "@material-ui/icons/Rowing";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import EditIcon from "@material-ui/icons/Edit";
-import SettingsIcon from "@material-ui/icons/Settings";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import FeedIcon from "@material-ui/icons/AllInclusive";
-import { makeStyles } from "@material-ui/core/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+
+import {
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Badge,
+  Collapse,
+  Menu,
+  MenuItem
+} from "@material-ui/core";
+
+import { createMuiTheme, makeStyles } from "@material-ui/core/styles";
+
+import {
+  Notifications as NotificationsIcon,
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  ChatBubble as ChatBubbleIcon,
+  Star as StarIcon,
+  ExpandLess,
+  ExpandMore,
+  Bookmark as BookmarkIcon,
+  Rowing as RowingIcon,
+  AccountBalance as AccountBalanceIcon,
+  PeopleAlt as PeopleAltIcon,
+  Edit as EditIcon,
+  Settings as SettingsIcon,
+  AccountCircle as AccountCircleIcon,
+  AllInclusive as FeedIcon
+} from "@material-ui/icons";
 
 const drawerWidth = 240;
 
@@ -136,7 +142,8 @@ const useStyles = makeStyles(theme => ({
   },
   Bell: {
     marginRight: theme.spacing(2)
-  }
+  },
+  profile: {}
 }));
 
 function Bell() {
@@ -152,6 +159,7 @@ function Bell() {
   );
 }
 function Profile() {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = event => {
@@ -162,11 +170,12 @@ function Profile() {
     setAnchorEl(null);
   };
   return (
-    <Fragment>
+    <>
       <IconButton
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
+        className={classes.profile}
       >
         <AccountCircleIcon />
       </IconButton>
@@ -180,12 +189,13 @@ function Profile() {
         <MenuItem onClick={CloseProfile}>Profile</MenuItem>
         <MenuItem onClick={CloseProfile}>Logout</MenuItem>
       </Menu>
-    </Fragment>
+    </>
   );
 }
+
 function AppBarItem(props) {
   const classes = useStyles();
-  const name = props.children;
+  const [name] = useState(props.children);
   const [OpenList, SetOpenList] = useState(false);
   const [active, SetActive] = useState(name === props.selected ? true : false);
   const handleClickList = () => {
@@ -199,6 +209,7 @@ function AppBarItem(props) {
       }
     }
   };
+
   useEffect(() => {
     if (!props.state) {
       SetOpenList(false);
@@ -207,24 +218,28 @@ function AppBarItem(props) {
       SetActive(true);
     }
   }, [props.state]);
+
   useEffect(() => {
     if (active & (name !== props.selected)) {
       SetActive(false);
     }
   }, [props.selected]);
+
   const onItemClick = () => {
     document.title = name;
     props.SetSelected(props.children);
     props.SetSelected2(props.children);
   };
+
   const handleClickListItem = Name => () => {
     props.SetSelected2(Name);
     props.SetSelected(name);
     props.SetTitle(Name);
   };
+
   if (props.expandable) {
     return (
-      <Fragment>
+      <>
         <ListItem selected={active} button onClick={handleClickList}>
           <ListItemIcon>{props.Icon}</ListItemIcon>
           <ListItemText primary={props.children} />
@@ -247,7 +262,7 @@ function AppBarItem(props) {
             ))}
           </List>
         </Collapse>
-      </Fragment>
+      </>
     );
   } else if (!props.expandable) {
     return (
@@ -264,23 +279,28 @@ function AppBarItem(props) {
     );
   }
 }
+
 export default function AppBarMain(props) {
   const classes = useStyles();
   const [drawerOpen, setOpen] = useState(false);
   const [selected, SetSelected] = useState(props.Selected);
   const [selected2, SetSelected2] = useState(props.Selected2);
   const [title, SetTitle] = useState(props.Selected2);
+
   const OpenDrawer = () => {
     setOpen(true);
   };
+
   const CloseDrawer = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     props.SetSelected(selected2);
   }, [props.selected]);
+
   return (
-    <Fragment>
+    <>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -434,6 +454,6 @@ export default function AppBarMain(props) {
           </AppBarItem>
         </List>
       </Drawer>
-    </Fragment>
+    </>
   );
 }

@@ -1,19 +1,16 @@
 {
-  "name": "Campfire",
+  "name": "from-sergej-edited",
   "version": "0.0.1",
-  "description": "Campfire web version",
-  "keywords": [
-    "react",
-    "starter"
-  ],
+  "description": "",
+  "keywords": [],
   "main": "src/index.js",
   "dependencies": {
     "@material-ui/core": "4.9.14",
     "@material-ui/icons": "4.9.1",
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
     "typescript": "3.8.3"
